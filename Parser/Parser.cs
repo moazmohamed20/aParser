@@ -15,7 +15,7 @@ namespace aParser.Parser
      * PROGRAM --> IMPORTS CLASSES
      *
      * IMPORTS          --> IMPORT_STATEMENT IMPORTS | ε
-     * IMPORT_STATEMENT --> using PACKAGES;
+     * IMPORT_STATEMENT --> using IDS;
      *
      * CLASSES          --> CLASS_STATEMENT CLASSES | ε
      * CLASS_STATEMENT  --> class id { SUPER_STATEMENTS }
@@ -27,12 +27,12 @@ namespace aParser.Parser
      *
      * COMMENT_STATEMENT  --> // comment | /* multiline_comment *\/
      * FUNCTION_STATEMENT --> DATA_TYPE id (DECLARES) { STATEMENTS }
-     * INLINE_STATEMENT     --> DECSIGN_STATEMENT | DECLARE_STATEMENT | INC_DEC_STATEMENT | ASSIGN_STATEMENT
+     * INLINE_STATEMENT     --> DECSIGN_STATEMENT | DECLARE_STATEMENT | INC_DEC_STATEMENT | ASSIGN_STATEMENT | CALL_STATEMENT
      *   DECSIGN_STATEMENT  --> DATA_TYPE id = EXPRESSION
      *   DECLARE_STATEMENT  --> DATA_TYPE id
      *   INC_DEC_STATEMENT  --> id INC_DEC_OPERATOR
      *   ASSIGN_STATEMENT   --> id ASSIGN_OPERATOR EXPRESSION
-     *   CALL_STATEMENT     --> PACKAGES(EXPRESSIONS)
+     *   CALL_STATEMENT     --> IDS(EXPRESSIONS)
      *
      *
      *
@@ -62,8 +62,8 @@ namespace aParser.Parser
      *
      * ************************************************************
      *
-     * PACKAGES         --> id MORE_PACKAGES
-     * MORE_PACKAGES    --> .PACKAGES | ;
+     * IDS              --> id MORE_IDS
+     * MORE_IDS         --> .IDS | ;
      *
      * DECLARES         --> DECLARE_STATEMENT MORE_DECLARES | ε
      * MORE_DECLARES    --> , DECLARES | ε
@@ -141,13 +141,13 @@ namespace aParser.Parser
         }
 
         // IMPORTS          --> IMPORT_STATEMENT IMPORTS | ε
-        // IMPORT_STATEMENT --> using PACKAGES;
+        // IMPORT_STATEMENT --> using IDS;
         private IEnumerable<Import> Imports()
         {
             while (_lookahead.Type == TokenType.Using)
             {
                 Match(TokenType.Using);
-                var packages = Packages().ToList();
+                var packages = IDs().ToList();
                 Match(TokenType.Semicolon);
                 yield return new Import() { Packages = packages };
             }
@@ -245,12 +245,12 @@ namespace aParser.Parser
         {
             return LookaheadFor(TokenType.DataType, TokenType.Identifier, TokenType.OpenRoundBracket);
         }
+        
 
 
 
 
-
-        // INLINE_STATEMENT --> DECSIGN_STATEMENT | DECLARE_STATEMENT | INC_DEC_STATEMENT | ASSIGN_STATEMENT
+        // INLINE_STATEMENT --> DECSIGN_STATEMENT | DECLARE_STATEMENT | INC_DEC_STATEMENT | ASSIGN_STATEMENT | CALL_STATEMENT
         private IInlineStatement InlineStatement()
         {
             if (_lookahead.Type == TokenType.DataType)
@@ -331,10 +331,10 @@ namespace aParser.Parser
                    LookaheadFor(TokenType.Identifier, TokenType.MinusEqual);
         }
 
-        // CALL_STATEMENT     --> PACKAGES(EXPRESSIONS)
+        // CALL_STATEMENT     --> IDS(EXPRESSIONS)
         private CallStatement CallStatement()
         {
-            var path = Packages().ToList();
+            var path = IDs().ToList();
             Match(TokenType.OpenRoundBracket);
             var parameters = Expressions().ToList();
             Match(TokenType.CloseRoundBracket);
@@ -634,12 +634,12 @@ namespace aParser.Parser
 
 
 
-        // PACKAGES    --> id MORE_PACKAGES
-        private IEnumerable<string> Packages()
+        // IDS         --> id MORE_IDS
+        private IEnumerable<string> IDs()
         {
             yield return Match(TokenType.Identifier).Value;
 
-            // MORE_PACKAGES --> .PACKAGES | ;
+            // MORE_IDS --> .IDS | ;
             while (_lookahead.Type == TokenType.Dot)
             {
                 Match(TokenType.Dot);

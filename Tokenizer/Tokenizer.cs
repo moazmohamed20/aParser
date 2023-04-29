@@ -82,14 +82,13 @@ namespace aParser.Tokenizer
             Token? lastMatch = null;
             foreach (var group in groupedByIndex)
             {
-                var highPriorityMatch = group.OrderBy(m => m.Priority).First(); // Take The HighestPriorityMatch
-                if (lastMatch != null && highPriorityMatch.StartIndex < lastMatch.EndIndex)
+                var highPriorityMatch = group.OrderBy(m => m.Priority).First(); // Take The Highest Priority Match
+                if (lastMatch != null && highPriorityMatch.StartIndex < lastMatch.EndIndex) // Take What Started First
                     continue;
                 lastMatch = highPriorityMatch;
                 yield return highPriorityMatch;
             };
         }
-
 
         private IEnumerable<Token> FindAllTokenMatches(string source)
         {

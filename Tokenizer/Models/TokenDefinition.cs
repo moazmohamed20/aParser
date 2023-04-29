@@ -22,9 +22,9 @@ namespace aParser.Tokenizer.Models
             {
                 Type = _tokenType,
                 Value = match.Value,
+                Priority = _priority,
                 StartIndex = match.Index,
                 EndIndex = match.Index + match.Length,
-                Priority = _priority
             });
         }
     }
