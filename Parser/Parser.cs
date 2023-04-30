@@ -1,4 +1,4 @@
-using aParser.Parser.Models;
+﻿using aParser.Parser.Models;
 using aParser.Parser.Models.Statements;
 using aParser.Parser.Models.Statements.StructStatements;
 using aParser.Parser.Models.Statements.StructStatementsCases;
@@ -48,11 +48,11 @@ namespace aParser.Parser
      *   BLOCK_STATEMENT       --> { STATEMENTS }
      *   RETURN_STATEMENT      --> return RETURN_STATEMENT_REST;
      *   RETURN_STATEMENT_REST --> EXPRESSION | ε
-     *   SWITCH_STATEMENT      --> switch { CASES }
+     *   SWITCH_STATEMENT      --> switch (EXPRESSION) { CASES }
      *   CASES                 --> CASE CASES | ε
      *   CASE                  --> CASE_STATEMENT | DEFAULT_STATEMENT
-     *   CASE_STATEMENT        --> case VALUE: STATEMENTS break;
-     *   DEFAULT_STATEMENT     --> default: STATEMENTS break;
+     *   CASE_STATEMENT        --> case VALUE: STATEMENT break;
+     *   DEFAULT_STATEMENT     --> default: STATEMENT break;
      *
      *
      *
@@ -468,15 +468,18 @@ namespace aParser.Parser
             return new ReturnStatement() { ReturnValue = expression };
         }
 
-        // SWITCH_STATEMENT   --> switch { CASES }
+        // SWITCH_STATEMENT   --> switch (EXPRESSION) { CASES }
         private SwitchStatement SwitchStatement()
         {
             Match(TokenType.Switch);
+            Match(TokenType.OpenRoundBracket);
+            var expression = Expression();
+            Match(TokenType.CloseRoundBracket);
             Match(TokenType.OpenCurlyBracket);
             var cases = CaseStatements().ToList();
             Match(TokenType.CloseCurlyBracket);
 
-            return new SwitchStatement() { Cases = cases };
+            return new SwitchStatement() { Expression = expression, Cases = cases };
         }
 
 
@@ -512,13 +515,13 @@ namespace aParser.Parser
         private CaseStatement CaseStatement()
         {
             Match(TokenType.Case);
-            var value = Value();
+            var constant = Value();
             Match(TokenType.Colon);
             var statement = Statement();
             Match(TokenType.Break);
             Match(TokenType.Semicolon);
 
-            return new CaseStatement() { Value = value, Statement = statement };
+            return new CaseStatement() { Constant = constant, Statement = statement };
         }
 
         // DEFAULT_STATEMENT  --> default: STATEMENT break;

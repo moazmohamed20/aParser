@@ -38,6 +38,21 @@ class TestProgram
         for (Print(); i < 10; i += 5)
             i++;
 
+        switch (i)
+        {
+            case 0:
+                { }
+                break;
+
+            case 1:
+                { }
+                break;
+
+            default:
+                { }
+                break;
+        }
+
         /*
         Multi Comment Code:
             /* for (int i = 0; i < 10; i += 5) i++; *\/
