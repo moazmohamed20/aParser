@@ -37,7 +37,7 @@
 
         // ------------ Values ------------ //
         Number,              // .25 | 3.14
-        String,              // "I am 'Moaz'" | 'I am "Moaz"'
+        String,              // "I am 'Moaz'"
         Comment,             // Any Character After (//) & Before (\r | \n | //)
         Identifier,          // fact | _private | iD1
         MultilineComment,    // Any Character After (/*) & Before (*/)
@@ -71,7 +71,7 @@
         Asterisk,            // *
         BackSlash,           // \
         ForwardSlash,        // /
-        DoubleForwardSlashes, // //
+        DoubleForwardSlashes,// //
         ForwardSlashAsterisk,// /*
         AsteriskForwardSlash,// */
         Dot,                 // .

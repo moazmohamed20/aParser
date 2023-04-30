@@ -20,7 +20,6 @@ foreach (string programFile in (args.Length > 0 ? args : testProgramFiles))
     stopwatch.Stop();
     Console.WriteLine($"  Tokenizer Completed Successfully in {stopwatch.ElapsedMilliseconds} ms");
 
-
     Console.WriteLine("  Parser Started...");
     stopwatch.Restart();
     var iModel = parser.Parse(tokens, programCode);

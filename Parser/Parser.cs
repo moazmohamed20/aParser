@@ -1,4 +1,4 @@
-﻿using aParser.Parser.Models;
+using aParser.Parser.Models;
 using aParser.Parser.Models.Statements;
 using aParser.Parser.Models.Statements.StructStatements;
 using aParser.Parser.Models.Statements.StructStatementsCases;
@@ -63,7 +63,7 @@ namespace aParser.Parser
      * ************************************************************
      *
      * IDS              --> id MORE_IDS
-     * MORE_IDS         --> .IDS | ;
+     * MORE_IDS         --> .IDS | ε
      *
      * DECLARES         --> DECLARE_STATEMENT MORE_DECLARES | ε
      * MORE_DECLARES    --> , DECLARES | ε
@@ -72,9 +72,10 @@ namespace aParser.Parser
      * MORE_EXPRESSIONS --> , EXPRESSIONS | ε
      *
      * ************************************************************
+     *
      * INC_DEC_OPERATOR --> ++ | --
      * ASSIGN_OPERATOR  --> = | += | -=
-     * REL_OPERATOR     --> == | != | >|  >= | < | <=
+     * REL_OPERATOR     --> == | != | > |  >= | < | <=
      */
     public class Parser
     {
@@ -245,7 +246,7 @@ namespace aParser.Parser
         {
             return LookaheadFor(TokenType.DataType, TokenType.Identifier, TokenType.OpenRoundBracket);
         }
-        
+
 
 
 
@@ -507,7 +508,7 @@ namespace aParser.Parser
             throw new Exception(string.Format("Invalid statement '{0}' at Line: {1}, Col: {2}", _lookahead.Value, lineIndex, columnIndex));
         }
 
-        // CASE_STATEMENT     --> case VALUE: STATEMENTS break;
+        // CASE_STATEMENT     --> case VALUE: STATEMENT break;
         private CaseStatement CaseStatement()
         {
             Match(TokenType.Case);
@@ -516,10 +517,11 @@ namespace aParser.Parser
             var statement = Statement();
             Match(TokenType.Break);
             Match(TokenType.Semicolon);
+
             return new CaseStatement() { Value = value, Statement = statement };
         }
 
-        // DEFAULT_STATEMENT  --> default: STATEMENTS break;
+        // DEFAULT_STATEMENT  --> default: STATEMENT break;
         private DefaultStatement DefaultStatement()
         {
             Match(TokenType.Default);
@@ -527,6 +529,7 @@ namespace aParser.Parser
             var statement = Statement();
             Match(TokenType.Break);
             Match(TokenType.Semicolon);
+
             return new DefaultStatement() { Statement = statement };
         }
 
@@ -639,7 +642,7 @@ namespace aParser.Parser
         {
             yield return Match(TokenType.Identifier).Value;
 
-            // MORE_IDS --> .IDS | ;
+            // MORE_IDS --> .IDS | ε
             while (_lookahead.Type == TokenType.Dot)
             {
                 Match(TokenType.Dot);
@@ -722,16 +725,16 @@ namespace aParser.Parser
                    type == TokenType.MinusEqual;
         }
 
-        // REL_OPERATOR      --> == | != | >|  >= | < | <=
+        // REL_OPERATOR      --> == | != | > |  >= | < | <=
         private string MatchRelOperator()
         {
             if (IsRelOperator(_lookahead.Type))
                 return Match(_lookahead.Type).Value;
 
             if (string.IsNullOrEmpty(_source))
-                throw new Exception(string.Format("Expected a relation operator [ == | != | >|  >= | < | <= ] but found: '{0}'", _lookahead.Value));
+                throw new Exception(string.Format("Expected a relation operator [ == | != | > |  >= | < | <= ] but found: '{0}'", _lookahead.Value));
             Utilities.GetLnColByPosition(_source, _lookahead.StartIndex, out int lineIndex, out int columnIndex);
-            throw new Exception(string.Format("Expected: a relation operator [ == | != | >|  >= | < | <= ] at Line: {0}, Col: {1}", lineIndex, columnIndex));
+            throw new Exception(string.Format("Expected: a relation operator [ == | != | > |  >= | < | <= ] at Line: {0}, Col: {1}", lineIndex, columnIndex));
         }
         private bool IsRelOperator(TokenType type)
         {
@@ -742,6 +745,5 @@ namespace aParser.Parser
                    type == TokenType.LessThan ||
                    type == TokenType.LessThanOrEqual;
         }
-
     }
 }
