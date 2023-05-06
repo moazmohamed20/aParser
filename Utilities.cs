@@ -1,4 +1,5 @@
 ﻿using Newtonsoft.Json;
+using Newtonsoft.Json.Converters;
 using Newtonsoft.Json.Serialization;
 using System.Text.RegularExpressions;
 
@@ -33,6 +34,7 @@ namespace aParser
                         value,
                         new JsonSerializerSettings()
                         {
+                            Converters = new List<JsonConverter> { new StringEnumConverter() },
                             NullValueHandling = NullValueHandling.Ignore,
                             TypeNameHandling = TypeNameHandling.Auto,
                             SerializationBinder = new TypeNameSerializationBinder()

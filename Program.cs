@@ -28,10 +28,11 @@ foreach (string programFile in (args.Length > 0 ? args : testProgramFiles))
 
     Console.WriteLine("  Serializer Started...");
     stopwatch.Restart();
-    var json = Utilities.JsonSerialize(iModel);
+    var tokensJson = Utilities.JsonSerialize(tokens);
+    var iModelJson = Utilities.JsonSerialize(iModel);
     stopwatch.Stop();
     Console.WriteLine($"  Serializer Completed Successfully in {stopwatch.ElapsedMilliseconds} ms");
-
-    File.WriteAllText($"{Path.GetFileNameWithoutExtension(programFile)}-Parse.json", json);
+    File.WriteAllText($"{Path.GetFileNameWithoutExtension(programFile)}-tokens.json", tokensJson);
+    File.WriteAllText($"{Path.GetFileNameWithoutExtension(programFile)}-iModel.json", iModelJson);
     Console.WriteLine();
 }
