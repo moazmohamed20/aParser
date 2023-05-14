@@ -4,17 +4,19 @@ using aParser.Tokenizer;
 using aParser.Translator;
 using System.Diagnostics;
 
-string[] testProgramFiles = { "TestProgram.cs" };
+string[] surroundingFiles = Directory.GetFiles(Environment.CurrentDirectory)
+                            .Where(s => Path.GetExtension(s) == ".cs")
+                            .ToArray();
 
 var parser = new Parser();
 var tokenizer = new Tokenizer();
 var translator = new Translator();
 var stopwatch = new Stopwatch();
 
-foreach (string programFile in (args.Length > 0 ? args : testProgramFiles))
+foreach (string file in (args.Length > 0 ? args : surroundingFiles))
 {
-    Console.WriteLine($"> Reading File: {programFile}");
-    var programCode = File.ReadAllText(programFile);
+    Console.WriteLine($"> Reading File: {Path.GetFileName(file)}");
+    var programCode = File.ReadAllText(file);
 
     #region "Tokenizer"
     Console.WriteLine("  Tokenizer Started...");
@@ -49,8 +51,8 @@ foreach (string programFile in (args.Length > 0 ? args : testProgramFiles))
     Console.WriteLine($"  Serializer Completed Successfully in {stopwatch.ElapsedMilliseconds} ms");
     #endregion
 
-    File.WriteAllText($"{Path.GetFileNameWithoutExtension(programFile)}-tokens.json", tokensJson);
-    File.WriteAllText($"{Path.GetFileNameWithoutExtension(programFile)}-iModel.json", iModelJson);
-    File.WriteAllText($"{Path.GetFileNameWithoutExtension(programFile)}.vb", program);
+    File.WriteAllText($"{Path.GetDirectoryName(file)}/{Path.GetFileNameWithoutExtension(file)}-tokens.json", tokensJson);
+    File.WriteAllText($"{Path.GetDirectoryName(file)}/{Path.GetFileNameWithoutExtension(file)}-iModel.json", iModelJson);
+    File.WriteAllText($"{Path.GetDirectoryName(file)}/{Path.GetFileNameWithoutExtension(file)}.vb", program);
     Console.WriteLine();
 }
