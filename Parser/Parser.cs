@@ -176,12 +176,12 @@ namespace aParser.Parser
         // SUPER_STATEMENTS --> SUPER_STATEMENT SUPER_STATEMENTS | ε
         private IEnumerable<ISuperStatement> SuperStatements()
         {
-            while (IsSuperStatement(_lookahead.Type))
+            while (IsSuperStatement())
                 yield return SuperStatement();
         }
 
         // SUPER_STATEMENT  --> COMMENT_STATEMENT | FUNCTION_STATEMENT | INLINE_STATEMENT
-        private bool IsSuperStatement(TokenType type)
+        private bool IsSuperStatement()
         {
             return IsCommentStatement() || IsFunctionStatement() || IsInlineStatement();
         }
@@ -265,7 +265,7 @@ namespace aParser.Parser
                 return CallStatement();
 
             if (string.IsNullOrEmpty(_source))
-                throw new Exception(string.Format("Invalid statement", _lookahead.Value));
+                throw new Exception(string.Format("Invalid statement '{0}'", _lookahead.Value));
             Utilities.GetLnColByPosition(_source, _lookahead.StartIndex, out int lineIndex, out int columnIndex);
             throw new Exception(string.Format("Invalid statement '{0}' at Line: {1}, Col: {2}", _lookahead.Value, lineIndex, columnIndex));
         }
@@ -550,7 +550,7 @@ namespace aParser.Parser
         // STATEMENT  --> SUPER_STATEMENT | STRUCT_STATEMENT
         private IStatement Statement()
         {
-            if (IsSuperStatement(_lookahead.Type))
+            if (IsSuperStatement())
                 return SuperStatement();
             else if (IsStructStatement(_lookahead.Type))
                 return StructStatement();
@@ -562,7 +562,7 @@ namespace aParser.Parser
         }
         private bool IsStatement(TokenType type)
         {
-            return IsSuperStatement(type) || IsStructStatement(type);
+            return IsSuperStatement() || IsStructStatement(type);
         }
 
 
