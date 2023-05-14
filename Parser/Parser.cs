@@ -693,7 +693,7 @@ namespace aParser.Parser
 
 
 
-        // INC_DEC_OPERATORS --> = | += | -=
+        // INC_DEC_OPERATOR --> ++ | -- 
         private string MatchIncDecOperator()
         {
             if (IsIncDecOperator(_lookahead.Type))
