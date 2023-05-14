@@ -15,11 +15,6 @@ class TestProgram
         string? localDeclare;
         localDeclare = null;
 
-        double LocalFunction()
-        {
-            return 3.14; /* Another Inline Comment With Code:  for (int i = 0; i < 10; i += 5) i++; */
-        }
-
         if (1 > 2)
             return;
 
@@ -36,7 +31,7 @@ class TestProgram
 
         int i = 0;
         for (Print(); i < 10; i += 5)
-            i++;
+            Print();
 
         switch (i)
         {
@@ -55,8 +50,13 @@ class TestProgram
 
         /*
         Multi Comment Code:
-            /* for (int i = 0; i < 10; i += 5) i++; *\/
+            for (int i = 0; i < 10; i += 5) i++;
         */
+    }
+
+    double Function()
+    {
+        return 3.14; /* Another Inline Comment With Code:  for (int i = 0; i < 10; i += 5) i++; */
     }
 
     void Print()
