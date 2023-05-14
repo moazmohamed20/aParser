@@ -575,12 +575,12 @@ namespace aParser.Parser
             if (_lookahead.Type == TokenType.True)
             {
                 Match(TokenType.True);
-                return new Condition() { Value = true };
+                return new Condition() { Output = true };
             }
             else if (_lookahead.Type == TokenType.False)
             {
                 Match(TokenType.False);
-                return new Condition() { Value = false };
+                return new Condition() { Output = false };
             }
             else
             {

@@ -8,6 +8,6 @@
 
         public string Right { get; set; }
 
-        public bool? Value { get; set; }
+        public bool? Output { get; set; }
     }
 }
