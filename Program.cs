@@ -4,9 +4,7 @@ using aParser.Tokenizer;
 using aParser.Translator;
 using System.Diagnostics;
 
-string[] surroundingFiles = Directory.GetFiles(Environment.CurrentDirectory)
-                            .Where(s => Path.GetExtension(s) == ".cs")
-                            .ToArray();
+string[] surroundingFiles = Directory.GetFiles(Environment.CurrentDirectory, "*.cs");
 
 var parser = new Parser();
 var tokenizer = new Tokenizer();
