@@ -11,7 +11,7 @@ class TestProgram
     void Main(string[] args)
     {
         // Local Comment
-        var localDecsign = "(Helo // World) (/* Test Comment */)";  // Inline Comment
+        var localDecsign = "(Hello // World) (/* Test Comment */)";  // Inline Comment
         string? localDeclare;
         localDeclare = null;
 
