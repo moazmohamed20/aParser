@@ -77,6 +77,7 @@ namespace aParser.Parser
      * ASSIGN_OPERATOR  --> = | += | -=
      * REL_OPERATOR     --> == | != | > |  >= | < | <=
      */
+
     public class Parser
     {
         private string? _source;
@@ -109,9 +110,9 @@ namespace aParser.Parser
             }
 
             if (string.IsNullOrEmpty(_source))
-                throw new Exception(string.Format("Expected: '{0}' but found: '{1}'", Utilities.ToSnakeCase(tokenType.ToString()), _lookahead.Value));
+                throw new Exception(string.Format("Expected: '{0}' before: '{1}'", Utilities.ToSnakeCase(tokenType.ToString()), _lookahead.Value));
             Utilities.GetLnColByPosition(_source, _lookahead.StartIndex, out int lineIndex, out int columnIndex);
-            throw new Exception(string.Format("Expected: '{0}' at Line: {1}, Col: {2}", Utilities.ToSnakeCase(tokenType.ToString()), lineIndex, columnIndex));
+            throw new Exception(string.Format("Expected: '{0}' at Line: {1}, Col: {2} before: '{3}'", Utilities.ToSnakeCase(tokenType.ToString()), lineIndex, columnIndex, _lookahead.Value));
         }
 
         private bool LookaheadFor(params TokenType[] types)
@@ -611,9 +612,9 @@ namespace aParser.Parser
             }
 
             if (string.IsNullOrEmpty(_source))
-                throw new Exception(string.Format("Invalid expression '{0}'", _lookahead.Value));
+                throw new Exception(string.Format("Expected an expression before: '{0}'", _lookahead.Value));
             Utilities.GetLnColByPosition(_source, _lookahead.StartIndex, out int lineIndex, out int columnIndex);
-            throw new Exception(string.Format("Invalid expression '{0}' at Line: {1}, Col: {2}", _lookahead.Value, lineIndex, columnIndex));
+            throw new Exception(string.Format("Expected an expression at Line: {0}, Col: {1} before: '{2}' ", lineIndex, columnIndex, _lookahead.Value));
         }
         private bool IsExpression(TokenType type)
         {
@@ -700,9 +701,9 @@ namespace aParser.Parser
                 return Match(_lookahead.Type).Value;
 
             if (string.IsNullOrEmpty(_source))
-                throw new Exception(string.Format("Expected an increment/decrement operator [ ++ | -- ] but found: '{0}'", _lookahead.Value));
+                throw new Exception(string.Format("Expected an increment/decrement operator [ ++ | -- ] before: '{0}'", _lookahead.Value));
             Utilities.GetLnColByPosition(_source, _lookahead.StartIndex, out int lineIndex, out int columnIndex);
-            throw new Exception(string.Format("Expected an increment/decrement operator [ ++ | -- ] at Line: {0}, Col: {1}", lineIndex, columnIndex));
+            throw new Exception(string.Format("Expected an increment/decrement operator [ ++ | -- ] at Line: {0}, Col: {1} before: '{2}'", lineIndex, columnIndex, _lookahead.Value));
         }
         private bool IsIncDecOperator(TokenType type)
         {
@@ -717,9 +718,9 @@ namespace aParser.Parser
                 return Match(_lookahead.Type).Value;
 
             if (string.IsNullOrEmpty(_source))
-                throw new Exception(string.Format("Expected an assign operator [ = | += | -=  ] but found: '{0}'", _lookahead.Value));
+                throw new Exception(string.Format("Expected an assign operator [ = | += | -=  ] before: '{0}'", _lookahead.Value));
             Utilities.GetLnColByPosition(_source, _lookahead.StartIndex, out int lineIndex, out int columnIndex);
-            throw new Exception(string.Format("Expected an assign operator [ = | += | -= ] at Line: {0}, Col: {1}", lineIndex, columnIndex));
+            throw new Exception(string.Format("Expected an assign operator [ = | += | -= ] at Line: {0}, Col: {1} before: '{2}'", lineIndex, columnIndex, _lookahead.Value));
         }
         private bool IsAssignOperator(TokenType type)
         {
@@ -735,9 +736,9 @@ namespace aParser.Parser
                 return Match(_lookahead.Type).Value;
 
             if (string.IsNullOrEmpty(_source))
-                throw new Exception(string.Format("Expected a relation operator [ == | != | > |  >= | < | <= ] but found: '{0}'", _lookahead.Value));
+                throw new Exception(string.Format("Expected a relation operator [ == | != | > |  >= | < | <= ] before: '{0}'", _lookahead.Value));
             Utilities.GetLnColByPosition(_source, _lookahead.StartIndex, out int lineIndex, out int columnIndex);
-            throw new Exception(string.Format("Expected: a relation operator [ == | != | > |  >= | < | <= ] at Line: {0}, Col: {1}", lineIndex, columnIndex));
+            throw new Exception(string.Format("Expected: a relation operator [ == | != | > |  >= | < | <= ] at Line: {0}, Col: {1} before: '{2}'", lineIndex, columnIndex, _lookahead.Value));
         }
         private bool IsRelOperator(TokenType type)
         {

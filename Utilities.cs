@@ -9,7 +9,7 @@ namespace aParser
     {
         public static void GetLnColByPosition(string text, int position, out int lineIndex, out int columnIndex)
         {
-            lineIndex = 0;
+            lineIndex = 1;
             columnIndex = 0;
 
             var lines = text.Split('\r');
@@ -17,7 +17,7 @@ namespace aParser
             {
                 if (position < line.Length)
                 {
-                    columnIndex = position + 1;
+                    columnIndex = position;
                     break;
                 }
                 else
