@@ -54,7 +54,7 @@ class TestProgram
         */
     }
 
-    double Function()
+    double PiValue()
     {
         return 3.14; /* Another Inline Comment With Code:  for (int i = 0; i < 10; i += 5) i++; */
     }

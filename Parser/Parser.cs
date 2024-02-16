@@ -23,13 +23,13 @@ namespace aParser.Parser
      *
      *
      * SUPER_STATEMENTS --> SUPER_STATEMENT SUPER_STATEMENTS | ε
-     * SUPER_STATEMENT  --> COMMENT_STATEMENT | FUNCTION_STATEMENT | INLINE_STATEMENT
+     * SUPER_STATEMENT  --> COMMENT_STATEMENT | FUNCTION_STATEMENT | INLINE_STATEMENT ;
      *
      * COMMENT_STATEMENT  --> // comment | /* multiline_comment *\/
-     * FUNCTION_STATEMENT --> DATA_TYPE id (DECLARES) { STATEMENTS }
+     * FUNCTION_STATEMENT --> data_type id (DECLARES) { STATEMENTS }
      * INLINE_STATEMENT     --> DECSIGN_STATEMENT | DECLARE_STATEMENT | INC_DEC_STATEMENT | ASSIGN_STATEMENT | CALL_STATEMENT
-     *   DECSIGN_STATEMENT  --> DATA_TYPE id = EXPRESSION
-     *   DECLARE_STATEMENT  --> DATA_TYPE id
+     *   DECSIGN_STATEMENT  --> data_type id = EXPRESSION
+     *   DECLARE_STATEMENT  --> data_type id
      *   INC_DEC_STATEMENT  --> id INC_DEC_OPERATOR
      *   ASSIGN_STATEMENT   --> id ASSIGN_OPERATOR EXPRESSION
      *   CALL_STATEMENT     --> IDS(EXPRESSIONS)
@@ -43,7 +43,7 @@ namespace aParser.Parser
      *   IF_STATEMENT          --> if (CONDITION) STATEMENT ELSE_STATEMENT
      *   ELSE_STATEMENT        --> else STATEMENT  | ε
      *   WHILE_STATEMENT       --> while (CONDITION) STATEMENT
-     *   Do_WHILE_STATEMENT    --> do STATEMENT while (CONDITION);
+     *   DO_WHILE_STATEMENT    --> do STATEMENT while (CONDITION);
      *   FOR_STATEMENT         --> for (INLINE_STATEMENT; CONDITION; INLINE_STATEMENT) STATEMENT
      *   BLOCK_STATEMENT       --> { STATEMENTS }
      *   RETURN_STATEMENT      --> return RETURN_STATEMENT_REST;
@@ -181,7 +181,7 @@ namespace aParser.Parser
                 yield return SuperStatement();
         }
 
-        // SUPER_STATEMENT  --> COMMENT_STATEMENT | FUNCTION_STATEMENT | INLINE_STATEMENT
+        // SUPER_STATEMENT  --> COMMENT_STATEMENT | FUNCTION_STATEMENT | INLINE_STATEMENT ;
         private bool IsSuperStatement()
         {
             return IsCommentStatement() || IsFunctionStatement() || IsInlineStatement();
@@ -227,7 +227,7 @@ namespace aParser.Parser
             return _lookahead.Type == TokenType.DoubleForwardSlashes || _lookahead.Type == TokenType.ForwardSlashAsterisk;
         }
 
-        // FUNCTION_STATEMENT --> DATA_TYPE id (DECLARES) { STATEMENTS }
+        // FUNCTION_STATEMENT --> data_type id (DECLARES) { STATEMENTS }
         private FunctionStatement FunctionStatement()
         {
             var type = Match(TokenType.DataType).Value;
@@ -275,7 +275,7 @@ namespace aParser.Parser
             return IsDecsignStatement() || IsDeclareStatement() || IsIncDecStatement() || IsAssignStatement() || IsCallStatement();
         }
 
-        // DECSIGN_STATEMENT  --> DATA_TYPE id = EXPRESSION
+        // DECSIGN_STATEMENT  --> data_type id = EXPRESSION
         private DecsignStatement DecsignStatement()
         {
             var type = Match(TokenType.DataType).Value;
@@ -290,7 +290,7 @@ namespace aParser.Parser
             return LookaheadFor(TokenType.DataType, TokenType.Identifier, TokenType.Equal);
         }
 
-        // DECLARE_STATEMENT  --> DATA_TYPE id
+        // DECLARE_STATEMENT  --> data_type id
         private DeclareStatement DeclareStatement()
         {
             var type = Match(TokenType.DataType).Value;
