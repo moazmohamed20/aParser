@@ -1,0 +1,105 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<svg xmlns="http://www.w3.org/2000/svg" width="285" height="125">
+   <defs>
+      <style type="text/css">
+         @namespace "http://www.w3.org/2000/svg";
+
+         .line {
+            fill: none;
+            stroke: #7F7F7F;
+            stroke-width: 1;
+         }
+
+         .bold-line {
+            stroke: #0A0A0A;
+            shape-rendering: crispEdges;
+            stroke-width: 2;
+         }
+
+         .thin-line {
+            stroke: #0F0F0F;
+            shape-rendering: crispEdges
+         }
+
+         .filled {
+            fill: #7F7F7F;
+            stroke: none;
+         }
+
+         text.terminal {
+            font-family: Verdana, Sans-serif;
+            font-size: 12px;
+            fill: #0A0A0A;
+            font-weight: bold;
+         }
+
+         text.nonterminal {
+            font-family: Verdana, Sans-serif;
+            font-size: 12px;
+            fill: #0D0D0D;
+            font-weight: normal;
+         }
+
+         text.regexp {
+            font-family: Verdana, Sans-serif;
+            font-size: 12px;
+            fill: #0F0F0F;
+            font-weight: normal;
+         }
+
+         rect,
+         circle,
+         polygon {
+            fill: #7F7F7F;
+            stroke: #7F7F7F;
+         }
+
+         rect.terminal {
+            fill: #FFFFFF;
+            stroke: #7F7F7F;
+            stroke-width: 1;
+         }
+
+         rect.nonterminal {
+            fill: #FFFFFF;
+            stroke: #7F7F7F;
+            stroke-width: 1;
+         }
+
+         rect.text {
+            fill: none;
+            stroke: none;
+         }
+
+         polygon.regexp {
+            fill: #FFFFFF;
+            stroke: #7F7F7F;
+            stroke-width: 1;
+         }
+      </style>
+   </defs>
+   <polygon points="9 17 1 13 1 21" />
+   <polygon points="17 17 9 13 9 21" />
+   <a xmlns:xlink="http://www.w3.org/1999/xlink" xlink:href="#COMMENT_STATEMENT" xlink:title="COMMENT_STATEMENT">
+      <rect x="51" y="3" width="162" height="32" />
+      <rect x="49" y="1" width="162" height="32" class="nonterminal" />
+      <text class="nonterminal" x="59" y="21">COMMENT_STATEMENT</text>
+   </a>
+   <a xmlns:xlink="http://www.w3.org/1999/xlink" xlink:href="#FUNCTION_STATEMENT" xlink:title="FUNCTION_STATEMENT">
+      <rect x="51" y="47" width="164" height="32" />
+      <rect x="49" y="45" width="164" height="32" class="nonterminal" />
+      <text class="nonterminal" x="59" y="65">FUNCTION_STATEMENT</text>
+   </a>
+   <a xmlns:xlink="http://www.w3.org/1999/xlink" xlink:href="#INLINE_STATEMENT" xlink:title="INLINE_STATEMENT">
+      <rect x="51" y="91" width="142" height="32" />
+      <rect x="49" y="89" width="142" height="32" class="nonterminal" />
+      <text class="nonterminal" x="59" y="109">INLINE_STATEMENT</text>
+   </a>
+   <rect x="213" y="91" width="24" height="32" rx="10" />
+   <rect x="211" y="89" width="24" height="32" class="terminal" rx="10" />
+   <text class="terminal" x="221" y="109">;</text>
+   <path class="line"
+      d="m17 17 h2 m20 0 h10 m162 0 h10 m0 0 h24 m-226 0 h20 m206 0 h20 m-246 0 q10 0 10 10 m226 0 q0 -10 10 -10 m-236 10 v24 m226 0 v-24 m-226 24 q0 10 10 10 m206 0 q10 0 10 -10 m-216 10 h10 m164 0 h10 m0 0 h22 m-216 -10 v20 m226 0 v-20 m-226 20 v24 m226 0 v-24 m-226 24 q0 10 10 10 m206 0 q10 0 10 -10 m-216 10 h10 m142 0 h10 m0 0 h10 m24 0 h10 m23 -88 h-3" />
+   <polygon points="275 17 283 13 283 21" />
+   <polygon points="275 17 267 13 267 21" />
+</svg>

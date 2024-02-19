@@ -1,0 +1,105 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<svg xmlns="http://www.w3.org/2000/svg" width="431" height="37">
+   <defs>
+      <style type="text/css">
+         @namespace "http://www.w3.org/2000/svg";
+
+         .line {
+            fill: none;
+            stroke: #7F7F7F;
+            stroke-width: 1;
+         }
+
+         .bold-line {
+            stroke: #0A0A0A;
+            shape-rendering: crispEdges;
+            stroke-width: 2;
+         }
+
+         .thin-line {
+            stroke: #0F0F0F;
+            shape-rendering: crispEdges
+         }
+
+         .filled {
+            fill: #7F7F7F;
+            stroke: none;
+         }
+
+         text.terminal {
+            font-family: Verdana, Sans-serif;
+            font-size: 12px;
+            fill: #0A0A0A;
+            font-weight: bold;
+         }
+
+         text.nonterminal {
+            font-family: Verdana, Sans-serif;
+            font-size: 12px;
+            fill: #0D0D0D;
+            font-weight: normal;
+         }
+
+         text.regexp {
+            font-family: Verdana, Sans-serif;
+            font-size: 12px;
+            fill: #0F0F0F;
+            font-weight: normal;
+         }
+
+         rect,
+         circle,
+         polygon {
+            fill: #7F7F7F;
+            stroke: #7F7F7F;
+         }
+
+         rect.terminal {
+            fill: #FFFFFF;
+            stroke: #7F7F7F;
+            stroke-width: 1;
+         }
+
+         rect.nonterminal {
+            fill: #FFFFFF;
+            stroke: #7F7F7F;
+            stroke-width: 1;
+         }
+
+         rect.text {
+            fill: none;
+            stroke: none;
+         }
+
+         polygon.regexp {
+            fill: #FFFFFF;
+            stroke: #7F7F7F;
+            stroke-width: 1;
+         }
+      </style>
+   </defs>
+   <polygon points="9 17 1 13 1 21" />
+   <polygon points="17 17 9 13 9 21" />
+   <a xmlns:xlink="http://www.w3.org/1999/xlink" xlink:href="#DATA_TYPE" xlink:title="DATA_TYPE">
+      <rect x="31" y="3" width="90" height="32" />
+      <rect x="29" y="1" width="90" height="32" class="nonterminal" />
+      <text class="nonterminal" x="39" y="21">DATA_TYPE</text>
+   </a>
+   <a xmlns:xlink="http://www.w3.org/1999/xlink" xlink:href="#IDENTIFIER" xlink:title="IDENTIFIER">
+      <rect x="141" y="3" width="92" height="32" />
+      <rect x="139" y="1" width="92" height="32" class="nonterminal" />
+      <text class="nonterminal" x="149" y="21">IDENTIFIER</text>
+   </a>
+   <rect x="253" y="3" width="30" height="32" rx="10" />
+   <rect x="251" y="1" width="30" height="32" class="terminal" rx="10" />
+   <text class="terminal" x="261" y="21">=</text>
+   <a xmlns:xlink="http://www.w3.org/1999/xlink" xlink:href="#EXPRESSION" xlink:title="EXPRESSION">
+      <rect x="303" y="3" width="100" height="32" />
+      <rect x="301" y="1" width="100" height="32" class="nonterminal" />
+      <text class="nonterminal" x="311" y="21">EXPRESSION</text>
+   </a>
+   <path class="line"
+      d="m17 17 h2 m0 0 h10 m90 0 h10 m0 0 h10 m92 0 h10 m0 0 h10 m30 0 h10 m0 0 h10 m100 0 h10 m3 0 h-3" />
+   <polygon points="421 17 429 13 429 21" />
+   <polygon points="421 17 413 13 413 21" />
+</svg>

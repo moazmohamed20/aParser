@@ -1,0 +1,43 @@
+PROGRAM ::= IMPORT_STATEMENT* CLASS_STATEMENT*
+
+IMPORT_STATEMENT ::= 'using' IDENTIFIER ('.' IDENTIFIER)* ';'
+CLASS_STATEMENT  ::= 'class' IDENTIFIER '{' SUPER_STATEMENT* '}'
+
+STATEMENT        ::= SUPER_STATEMENT | STRUCT_STATEMENT
+
+    SUPER_STATEMENT  ::= COMMENT_STATEMENT | FUNCTION_STATEMENT | INLINE_STATEMENT ';'
+        COMMENT_STATEMENT  ::= COMMENT | MULTILINE_COMMENT
+            COMMENT           ::= '//' .* '\n'
+            MULTILINE_COMMENT ::= '/*' .* '*/'
+        FUNCTION_STATEMENT ::= DATA_TYPE IDENTIFIER '(' (DECLARE_STATEMENT (',' DECLARE_STATEMENT)*)? ')' '{' STATEMENT* '}'
+        INLINE_STATEMENT   ::= DECLARE_STATEMENT | ASSIGN_STATEMENT | DECSIGN_STATEMENT | INC_DEC_STATEMENT | CALL_STATEMENT
+            DECLARE_STATEMENT  ::= DATA_TYPE IDENTIFIER
+            ASSIGN_STATEMENT   ::= IDENTIFIER ASSIGN_OPERATOR EXPRESSION
+            DECSIGN_STATEMENT  ::= DATA_TYPE IDENTIFIER '=' EXPRESSION
+            INC_DEC_STATEMENT  ::= IDENTIFIER INC_DEC_OPERATOR
+            CALL_STATEMENT     ::= IDENTIFIER ('.' IDENTIFIER)* '(' EXPRESSIONS ')'
+
+    STRUCT_STATEMENT ::= BLOCK_STATEMENT | IF_STATEMENT | WHILE_STATEMENT | DO_WHILE_STATEMENT | FOR_STATEMENT  | RETURN_STATEMENT | SWITCH_STATEMENT
+        BLOCK_STATEMENT       ::= '{' STATEMENT* '}'
+        IF_STATEMENT          ::= 'if' '(' CONDITION ')' STATEMENT ('else' STATEMENT)?
+        WHILE_STATEMENT       ::= 'while' '(' CONDITION ')' STATEMENT
+        DO_WHILE_STATEMENT    ::= 'do' STATEMENT 'while' '(' CONDITION ')' ';'
+        FOR_STATEMENT         ::= 'for' '(' INLINE_STATEMENT ';' CONDITION ';' INLINE_STATEMENT ')' STATEMENT
+        RETURN_STATEMENT      ::= 'return' EXPRESSION? ';'
+        SWITCH_STATEMENT      ::= 'switch' '(' EXPRESSION ')' '{' CASE_STATEMENT* DEFAULT_STATEMENT?  '}'
+        CASE_STATEMENT        ::= 'case' VALUE ':' STATEMENT 'break' ';'
+        DEFAULT_STATEMENT     ::= 'default' ':' STATEMENT 'break' ';'
+
+CONDITION  ::= EXPRESSION REL_OPERATOR EXPRESSION | BOOLEAN
+
+EXPRESSION ::= IDENTIFIER | VALUE | '(' EXPRESSION ')'
+    IDENTIFIER ::= [a-zA-Z_] [a-zA-Z0-9_]*
+    VALUE      ::= NUMBER | BOOLEAN | STRING | 'null'
+        NUMBER      ::= [0-9]* '.'? [0-9]+
+        BOOLEAN     ::= 'true' | 'false'
+        STRING      ::= '"' [^"]+* '"'
+
+INC_DEC_OPERATOR ::= '++' | '--'
+ASSIGN_OPERATOR  ::= '=' | '+=' | '-='
+REL_OPERATOR     ::= '==' | '!=' | '>' | '>=' | '<' | '<='
+DATA_TYPE        ::= ('void'|'var') | ('bool'|'char'|'short'|'int'|'long'|'float'|'double'|'decimal'|'string'|'String')('[]' | '?')?
